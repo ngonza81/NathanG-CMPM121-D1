@@ -3,6 +3,10 @@ import "./style.css";
 // Global Variables
 let counter = 0;
 let growthRate = 0;
+let slowPrice = 10;
+let pacedPrice = 100;
+let fastPrice = 1000;
+const increasePriceRate = 1.15;
 let lastTime = performance.now();
 
 document.body.innerHTML = `
@@ -10,15 +14,18 @@ document.body.innerHTML = `
   <p>Cookies: <span id="counter">0</span></p>
   <p>Current Growth Rate: <span id="growthRate">0</span></p>
 
-  <button id="slowClicker" disabled>Add Slow Clicker (10 Cookies)</button>
-  <button id="pacedClicker" disabled>Add Paced Clicker (100 Cookies)</button>
-  <button id="fastClicker" disabled>Add Fast Clicker (1000 Cookies)</button>
+  <button id="slowClicker" disabled>Add Slow Clicker (<span id="slowPrice">10</span> Cookies)</button>
+  <button id="pacedClicker" disabled>Add Paced Clicker (<span id="pacedPrice">100</span> Cookies)</button>
+  <button id="fastClicker" disabled>Add Fast Clicker (<span id="fastPrice">1000</span> Cookies)</button>
 `;
 
 // Click handler
 const button = document.getElementById("Click")! as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 const currentGrowthRateElement = document.getElementById("growthRate")!;
+const slowPriceElement = document.getElementById("slowPrice")!;
+const pacedPriceElement = document.getElementById("pacedPrice")!;
+const fastPriceElement = document.getElementById("fastPrice")!;
 const buySlowClickerButton = document.getElementById(
   "slowClicker",
 )! as HTMLButtonElement;
@@ -32,9 +39,13 @@ const buyFastClickerButton = document.getElementById(
 function updateDisplay() {
   currentGrowthRateElement.textContent = growthRate.toFixed(1);
   counterElement.textContent = Math.floor(counter).toString();
-  buySlowClickerButton.disabled = counter < 10;
-  buyPacedClickerButton.disabled = counter < 100;
-  buyFastClickerButton.disabled = counter < 1000;
+  currentGrowthRateElement.textContent = growthRate.toFixed(1);
+  slowPriceElement.textContent = slowPrice.toString();
+  pacedPriceElement.textContent = pacedPrice.toString();
+  fastPriceElement.textContent = fastPrice.toString();
+  buySlowClickerButton.disabled = counter < slowPrice;
+  buyPacedClickerButton.disabled = counter < pacedPrice;
+  buyFastClickerButton.disabled = counter < fastPrice;
 }
 
 // Increment counter (Automatically by frame rate)
@@ -56,27 +67,30 @@ button.addEventListener("click", () => {
 
 // Buy Slow Clicker
 buySlowClickerButton.addEventListener("click", () => {
-  if (counter >= 10) {
-    counter -= 10;
+  if (counter >= slowPrice) {
+    counter -= slowPrice;
     growthRate += 0.1;
+    slowPrice = Math.round(increasePriceRate * slowPrice * 100) / 100;
     updateDisplay();
   }
 });
 
 // Buy Paced Clicker
 buyPacedClickerButton.addEventListener("click", () => {
-  if (counter >= 100) {
-    counter -= 100;
+  if (counter >= pacedPrice) {
+    counter -= pacedPrice;
     growthRate += 2.0;
+    pacedPrice = Math.round(increasePriceRate * pacedPrice * 100) / 100;
     updateDisplay();
   }
 });
 
 // Buy Fast Clicker
 buyFastClickerButton.addEventListener("click", () => {
-  if (counter >= 1000) {
-    counter -= 1000;
+  if (counter >= fastPrice) {
+    counter -= fastPrice;
     growthRate += 50;
+    fastPrice = Math.round(increasePriceRate * fastPrice * 100) / 100;
     updateDisplay();
   }
 });
