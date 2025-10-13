@@ -1,51 +1,66 @@
 import "./style.css";
 
 // Global Variables
+const increasePriceRate = 1.15;
 let counter = 0;
 let growthRate = 0;
-let slowPrice = 10;
-let pacedPrice = 100;
-let fastPrice = 1000;
-const increasePriceRate = 1.15;
 let lastTime = performance.now();
+const availableItems = [
+  {
+    id: "slow",
+    name: "Baby Grinder🤖",
+    rate: 0.1,
+    cost: 10,
+  },
+  {
+    id: "paced",
+    name: "Focused Student🎓",
+    rate: 2.0,
+    cost: 100,
+  },
+  {
+    id: "fast",
+    name: "Samurai Sous Chef🥋",
+    rate: 50,
+    cost: 1000,
+  },
+];
 
 document.body.innerHTML = `
   <button id="Click">Make Matcha! 🍵</button>
   <p>Matcha: <span id="counter">0</span></p>
   <p>Current Growth Rate: <span id="growthRate">0</span></p>
-
-  <button id="slowClicker" disabled>Add Baby Grinder🤖 (<span id="slowPrice">10</span> Matcha)</button>
-  <button id="pacedClicker" disabled>Add Focused Student🎓 (<span id="pacedPrice">100</span> Matcha)</button>
-  <button id="fastClicker" disabled>Add Samurai Sous Chef🥋 (<span id="fastPrice">1000</span> Matcha)</button>
+  <div id="shop"></div>
 `;
 
-// Click handler
+// Creating buttons for each upgrade item
+const shop = document.getElementById("shop")!;
+
+for (const item of availableItems) {
+  shop.innerHTML += `
+    <button id="${item.id}Clicker" disabled>
+      Add ${item.name} (<span id="${item.id}Price">${item.cost}</span> Matcha)
+    </button>
+  `;
+}
+
+// Click and number handlers
 const button = document.getElementById("Click")! as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 const currentGrowthRateElement = document.getElementById("growthRate")!;
-const slowPriceElement = document.getElementById("slowPrice")!;
-const pacedPriceElement = document.getElementById("pacedPrice")!;
-const fastPriceElement = document.getElementById("fastPrice")!;
-const buySlowClickerButton = document.getElementById(
-  "slowClicker",
-)! as HTMLButtonElement;
-const buyPacedClickerButton = document.getElementById(
-  "pacedClicker",
-)! as HTMLButtonElement;
-const buyFastClickerButton = document.getElementById(
-  "fastClicker",
-)! as HTMLButtonElement;
 
+// Make Upgrade Buttons and update prices and growth rate display
 function updateDisplay() {
   currentGrowthRateElement.textContent = growthRate.toFixed(1);
-  counterElement.textContent = Math.floor(counter).toString();
-  currentGrowthRateElement.textContent = growthRate.toFixed(1);
-  slowPriceElement.textContent = slowPrice.toString();
-  pacedPriceElement.textContent = pacedPrice.toString();
-  fastPriceElement.textContent = fastPrice.toString();
-  buySlowClickerButton.disabled = counter < slowPrice;
-  buyPacedClickerButton.disabled = counter < pacedPrice;
-  buyFastClickerButton.disabled = counter < fastPrice;
+  counterElement.textContent = counter.toFixed(1);
+  for (const item of availableItems) {
+    const priceElement = document.getElementById(`${item.id}Price`)!;
+    const buttonElement = document.getElementById(
+      `${item.id}Clicker`,
+    )! as HTMLButtonElement;
+    priceElement.textContent = item.cost.toString();
+    buttonElement.disabled = counter < item.cost;
+  }
 }
 
 // Increment counter (Automatically by frame rate)
@@ -65,35 +80,21 @@ button.addEventListener("click", () => {
   updateDisplay();
 });
 
-// Buy Slow Clicker
-buySlowClickerButton.addEventListener("click", () => {
-  if (counter >= slowPrice) {
-    counter -= slowPrice;
-    growthRate += 0.1;
-    slowPrice = Math.round(increasePriceRate * slowPrice * 100) / 100;
-    updateDisplay();
-  }
-});
+// Upgrade button handlers
+for (const item of availableItems) {
+  const button = document.getElementById(
+    `${item.id}Clicker`,
+  )! as HTMLButtonElement;
 
-// Buy Paced Clicker
-buyPacedClickerButton.addEventListener("click", () => {
-  if (counter >= pacedPrice) {
-    counter -= pacedPrice;
-    growthRate += 2.0;
-    pacedPrice = Math.round(increasePriceRate * pacedPrice * 100) / 100;
-    updateDisplay();
-  }
-});
-
-// Buy Fast Clicker
-buyFastClickerButton.addEventListener("click", () => {
-  if (counter >= fastPrice) {
-    counter -= fastPrice;
-    growthRate += 50;
-    fastPrice = Math.round(increasePriceRate * fastPrice * 100) / 100;
-    updateDisplay();
-  }
-});
+  button.addEventListener("click", () => {
+    if (counter >= item.cost) {
+      counter -= item.cost;
+      growthRate += item.rate;
+      item.cost = Math.round(item.cost * increasePriceRate * 100) / 100;
+      updateDisplay();
+    }
+  });
+}
 
 // Start the animation loop
 requestAnimationFrame(animate);
