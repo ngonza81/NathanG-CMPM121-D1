@@ -10,13 +10,13 @@ const increasePriceRate = 1.15;
 let lastTime = performance.now();
 
 document.body.innerHTML = `
-  <button id="Click">Make Cookies! 👆</button>
-  <p>Cookies: <span id="counter">0</span></p>
+  <button id="Click">Make Matcha! 🍵</button>
+  <p>Matcha: <span id="counter">0</span></p>
   <p>Current Growth Rate: <span id="growthRate">0</span></p>
 
-  <button id="slowClicker" disabled>Add Slow Clicker (<span id="slowPrice">10</span> Cookies)</button>
-  <button id="pacedClicker" disabled>Add Paced Clicker (<span id="pacedPrice">100</span> Cookies)</button>
-  <button id="fastClicker" disabled>Add Fast Clicker (<span id="fastPrice">1000</span> Cookies)</button>
+  <button id="slowClicker" disabled>Add Baby Grinder🤖 (<span id="slowPrice">10</span> Matcha)</button>
+  <button id="pacedClicker" disabled>Add Focused Student🎓 (<span id="pacedPrice">100</span> Matcha)</button>
+  <button id="fastClicker" disabled>Add Samurai Sous Chef🥋 (<span id="fastPrice">1000</span> Matcha)</button>
 `;
 
 // Click handler
