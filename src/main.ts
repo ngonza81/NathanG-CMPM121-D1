@@ -9,7 +9,7 @@ let growthRate = 0;
 let lastTime = performance.now();
 const availableItems = [
   {
-    id: "slow",
+    id: "baby",
     name: "Baby Grinder🤖",
     rate: 1,
     cost: 10,
@@ -17,7 +17,7 @@ const availableItems = [
       "A toy mortar from a tea-themed gacha machine. It… sort of works?",
   },
   {
-    id: "paced",
+    id: "student",
     name: "Focused Student🎓",
     rate: 3,
     cost: 100,
@@ -25,7 +25,7 @@ const availableItems = [
       "One of your classmates, bribed with free tea. They copy your technique (but slower).",
   },
   {
-    id: "fast",
+    id: "samurai",
     name: "Samurai Sous Chef🥋",
     rate: 10,
     cost: 500,
@@ -33,7 +33,7 @@ const availableItems = [
       "A warrior who believes the whisk is the soul. They don't sleep. Neither should you.",
   },
   {
-    id: "faster",
+    id: "mizuko",
     name: "Tea Spirit (Mizuko)✨",
     rate: 25,
     cost: 1000,
@@ -41,7 +41,7 @@ const availableItems = [
       "A mischievous forest spirit who controls water. Demands respect (and clean bowls).",
   },
   {
-    id: "fastest",
+    id: "ancient",
     name: "The Ancient One🌿",
     rate: 50,
     cost: 5000,
@@ -81,7 +81,7 @@ const button = document.getElementById("Click")! as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 const currentGrowthRateElement = document.getElementById("growthRate")!;
 
-// Make Upgrade Buttons and update prices and growth rate display
+//Updates all UI numbers and enables/disables buttons
 function updateDisplay() {
   currentGrowthRateElement.textContent = Math.floor(growthRate).toString();
   counterElement.textContent = Math.floor(counter).toString();
