@@ -1,6 +1,8 @@
 import "./style.css";
 
-// Global Variables
+// ————————————————
+// Game State
+
 const increasePriceRate = 1.15;
 let counter = 0;
 let growthRate = 0;
@@ -47,6 +49,10 @@ const availableItems = [
       "Our silent master. Finally returns. Says nothing. Just… produces perfect froth.",
   },
 ];
+// ————————————————
+
+// ————————————————
+// UI Construction
 
 document.body.innerHTML = `
   <button id="Click">Make Matcha! 🍵</button>
@@ -65,6 +71,10 @@ for (const item of availableItems) {
     </button><br>
   `;
 }
+// ————————————————
+
+// ————————————————
+// Event Handlers
 
 // Click and number handlers
 const button = document.getElementById("Click")! as HTMLButtonElement;
@@ -117,6 +127,7 @@ for (const item of availableItems) {
     }
   });
 }
+// ————————————————
 
 // Start the animation loop
 requestAnimationFrame(animate);
