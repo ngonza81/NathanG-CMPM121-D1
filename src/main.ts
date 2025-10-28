@@ -7,9 +7,18 @@ const increasePriceRate = 1.15;
 let counter = 0;
 let growthRate = 0;
 let lastTime = performance.now();
+
+/*
+// Each item represents a matcha-making helper, with:
+// - id: a unique key used to find its button in the DOM
+// - name: displayed in the shop
+// - rate: how much it increases the matcha per second
+// - cost: how much matcha it costs to buy
+// - description: a short blurb about the item
+*/
 const availableItems = [
   {
-    id: "baby",
+    id: "tier1",
     name: "Baby Grinder🤖",
     rate: 1,
     cost: 10,
@@ -17,7 +26,7 @@ const availableItems = [
       "A toy mortar from a tea-themed gacha machine. It… sort of works?",
   },
   {
-    id: "student",
+    id: "tier2",
     name: "Focused Student🎓",
     rate: 3,
     cost: 100,
@@ -25,7 +34,7 @@ const availableItems = [
       "One of your classmates, bribed with free tea. They copy your technique (but slower).",
   },
   {
-    id: "samurai",
+    id: "tier3",
     name: "Samurai Sous Chef🥋",
     rate: 10,
     cost: 500,
@@ -33,7 +42,7 @@ const availableItems = [
       "A warrior who believes the whisk is the soul. They don't sleep. Neither should you.",
   },
   {
-    id: "mizuko",
+    id: "tier4",
     name: "Tea Spirit (Mizuko)✨",
     rate: 25,
     cost: 1000,
@@ -41,7 +50,7 @@ const availableItems = [
       "A mischievous forest spirit who controls water. Demands respect (and clean bowls).",
   },
   {
-    id: "ancient",
+    id: "tier5",
     name: "The Ancient One🌿",
     rate: 50,
     cost: 5000,
