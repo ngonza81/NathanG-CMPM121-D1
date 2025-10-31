@@ -1,4 +1,6 @@
 import "./style.css";
+import matcha from "./Matcha Emoji.png";
+import drinkImg from "./Matcha Drink.png";
 
 // ————————————————
 // Game State
@@ -64,7 +66,7 @@ const availableItems = [
 // UI Construction
 
 document.body.innerHTML = `
-  <button id="Click">Make Matcha! 🍵</button>
+  <img src="${matcha}" id="matchaButton" class="icon emoji-btn" />
   <p>Matcha: <span id="counter">0</span></p>
   <p>Current Growth Rate: <span id="growthRate">0</span></p>
   <div id="shop"></div>
@@ -86,7 +88,7 @@ for (const item of availableItems) {
 // Event Handlers
 
 // Click and number handlers
-const button = document.getElementById("Click")! as HTMLButtonElement;
+const button = document.getElementById("matchaButton")! as HTMLButtonElement;
 const counterElement = document.getElementById("counter")!;
 const currentGrowthRateElement = document.getElementById("growthRate")!;
 
@@ -119,6 +121,21 @@ function animate(currentTime: number) {
 button.addEventListener("click", () => {
   counter += 1;
   updateDisplay();
+
+  const drink = document.createElement("img");
+  drink.src = drinkImg;
+  drink.className = "floating-drink";
+
+  const rect = button.getBoundingClientRect();
+  drink.style.left = Math.random() * (rect.right - rect.left) +
+    (rect.left - 25) +
+    "px";
+  drink.style.top = rect.top + "px";
+  document.body.appendChild(drink);
+
+  setTimeout(() => {
+    drink.remove();
+  }, 1000);
 });
 
 // Upgrade button handlers

@@ -1,9 +1,56 @@
 .icon {
-  width: 64px;
+  width: 130px;
   vertical-align: top;
-  border: 1px solid salmon;
 }
+
+.emoji-btn {
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.emoji-btn:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.emoji-btn:active {
+  transform: scale(0.95);
+  filter: brightness(0.9);
+}
+
+.floating-drink {
+  position: absolute;
+  width: 50px;
+  pointer-events: none;
+  z-index: 1000;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-150px) scale(0.8);
+  }
+}
+
 #Click {
   font-size: 2rem;
   padding: 1rem 2rem;
+}
+
+p {
+  font-size: 24px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* centers vertically */
+  height: 80vh; /* make body fill full viewport height */
+  align-items: center;
+  text-align: center;
 }
